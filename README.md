@@ -40,6 +40,24 @@ if result['paid']:
     deliver()
 ```
 
+## Node.js
+
+The same check for Node.js 18 or newer, in one file with no dependencies:
+
+```
+node usdc_check.mjs 0xTRANSACTION_HASH --to 0xYOUR_ADDRESS --min 5.00
+```
+
+As a module:
+
+```js
+import { check } from './usdc_check.mjs';
+const result = await check(txHash, myAddress, '5.00', 3);
+if (result.paid) deliver();
+```
+
+Amounts are handled as exact integers (BigInt), never as floating point. To test it yourself on a real recent transfer (read only): node test_live.mjs
+
 ## What it checks
 
 - the transaction exists and did not revert;
