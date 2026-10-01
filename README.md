@@ -42,6 +42,8 @@ if result['paid']:
 
 ## Node.js
 
+Step-by-step guide: https://cryptolabsia.online/verify-usdc-payment-node
+
 The same check for Node.js 18 or newer, in one file with no dependencies:
 
 ```
