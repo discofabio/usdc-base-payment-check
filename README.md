@@ -80,6 +80,18 @@ python3 usdc_watch.py --to 0xYOUR_ADDRESS --min 1.00 --state watch.json --webhoo
 
 With `--state` it remembers the next block to scan, so a restart does not miss or repeat payments. With `--webhook` it sends the same JSON as a POST; with `--secret` the header `x-signature` is the hex HMAC-SHA256 of the body. A webhook that still fails after 3 attempts is marked `webhook_delivered: false` in the output and is not retried later, so keep the output too. Live test (read only): `python3 test_watch_live.py`.
 
+## Hosted pay-per-call API (x402, beta)
+
+Step-by-step guide: https://cryptolabsia.online/x402-usdc-activity
+
+If you prefer not to run the scripts yourself, the same reads are available as a hosted endpoint paid per call with the x402 protocol: current USDC balance of an address on Base plus every incoming USDC transfer in the last N blocks, 0.005 USDC per call, paid straight to the wallet of the agent. Description and honest status: https://cryptolabsia.online/x402
+
+```
+curl -i https://cryptolabsia.online/x402/usdc-activity?address=0xYOUR_ADDRESS
+```
+
+Without a payment the answer is HTTP 402 with the payment requirements. Beta: the paywall passed its self tests, but no real payment has been settled through it yet. The scripts in this repository stay free.
+
 ## What it does NOT do (read this)
 
 - **Replay protection is your job.** A transaction hash is public: store every hash you have accepted and refuse it the second time, or a customer can reuse the same payment.
