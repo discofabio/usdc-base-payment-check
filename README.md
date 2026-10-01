@@ -67,11 +67,22 @@ Amounts are handled as exact integers (BigInt), never as floating point. To test
 - the total is at least your minimum;
 - it has the confirmations you asked for.
 
+## Watch an address
+
+`usdc_watch.py` prints one JSON line for every USDC payment that arrives at your address on Base, after the confirmations you ask for (default 3). One Python file, no dependencies, no API key.
+
+```
+python3 usdc_watch.py --to 0xYOUR_ADDRESS --state watch.json
+python3 usdc_watch.py --to 0xYOUR_ADDRESS --min 1.00 --state watch.json --webhook https://example.com/hook --secret YOUR_SECRET
+```
+
+With `--state` it remembers the next block to scan, so a restart does not miss or repeat payments. With `--webhook` it sends the same JSON as a POST; with `--secret` the header `x-signature` is the hex HMAC-SHA256 of the body. A webhook that still fails after 3 attempts is marked `webhook_delivered: false` in the output and is not retried later, so keep the output too. Live test (read only): `python3 test_watch_live.py`.
+
 ## What it does NOT do (read this)
 
 - **Replay protection is your job.** A transaction hash is public: store every hash you have accepted and refuse it the second time, or a customer can reuse the same payment.
 - It does not tell you WHICH customer paid. Use a unique amount per order, or ask the customer for the hash and bind it to the order.
-- It does not watch your address. It checks one transaction when you ask.
+- `usdc_check` checks one transaction when you ask. To watch an address use `usdc_watch.py` (see above).
 - The public RPC endpoint is rate limited. For heavy use pass your own endpoint with `--rpc`.
 - No warranty. Test with a small payment first.
 
