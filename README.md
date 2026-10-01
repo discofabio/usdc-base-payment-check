@@ -69,6 +69,8 @@ Amounts are handled as exact integers (BigInt), never as floating point. To test
 
 ## Watch an address
 
+Step-by-step guide: https://cryptolabsia.online/watch-usdc-payments-python
+
 `usdc_watch.py` prints one JSON line for every USDC payment that arrives at your address on Base, after the confirmations you ask for (default 3). One Python file, no dependencies, no API key.
 
 ```
