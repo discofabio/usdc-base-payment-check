@@ -55,6 +55,10 @@ if result['paid']:
 - The public RPC endpoint is rate limited. For heavy use pass your own endpoint with `--rpc`.
 - No warranty. Test with a small payment first.
 
+## Step-by-step guide
+
+How to use it in your own code, with replay protection in SQLite: https://cryptolabsia.online/verify-usdc-payment-python
+
 ## If you want to be notified instead of polling
 
 The site https://cryptolabsia.online has free guides (Node.js and Python webhook receivers, detecting incoming USDC with `eth_getLogs`) and a hosted webhook alert service in beta. Everything in this repository works without it.
